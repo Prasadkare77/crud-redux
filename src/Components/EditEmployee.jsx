@@ -5,14 +5,20 @@ import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 
 import { EmployeeContext } from './EmployeeStore';
+// import useSelector from store to the read data
+import { useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
+import { updateEmployee } from './employeeSlice';
 
 const EditEmployee = () => {
   const navigate = useNavigate()
+  const dispatch = useDispatch()
 
   const {ID} = useParams()
   console.log(ID);
 
-  const {employees, updateEmployee} = useContext(EmployeeContext)
+  // const {employees, updateEmployee} = useContext(EmployeeContext)
+  const employees = useSelector(state => state.employee.employees)
 
   const [id,setId] = useState()
   const [name,setName] = useState()
@@ -33,7 +39,7 @@ const EditEmployee = () => {
   const handleUpdate = (e) => {
     e.preventDefault();
     const updatedEmployee = {ID:parseInt(ID),id,name,position,company}
-    updateEmployee(parseInt(ID),updatedEmployee)
+    dispatch(updateEmployee({ID:parseInt(ID),updatedEmployee}))
     navigate('/')
   }
 

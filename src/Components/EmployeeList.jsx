@@ -5,10 +5,17 @@ import Table from 'react-bootstrap/Table';
 
 // To read data from store we need useSelector
 import { useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
+import { deleteEmployee } from './employeeSlice';
 
 const EmployeeList = () => {
     const navigate = useNavigate()
+    const dispatch = useDispatch()
     const employees = useSelector(state=>state.employee.employees)
+
+    const handleDelete = (ID) => {
+        dispatch(deleteEmployee(ID))
+    }
     
   return (
     <div>
@@ -39,7 +46,7 @@ const EmployeeList = () => {
                         <td>{employee.company}</td>
                         <td>
                             <Button className='me-2' variant="primary" onClick={() => navigate(`/editEmployee/${employee.ID}`)}>Edit</Button>
-                            {/* <Button className='ms-2' variant="danger" onClick={() => deleteEmployee(employee.ID)}>Delete</Button> */}
+                            <Button className='ms-2' variant="danger" onClick={() => handleDelete(employee.ID)}>Delete</Button>
                         </td>
                     </tr>
                     ))}
