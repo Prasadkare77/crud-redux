@@ -26,7 +26,6 @@ const AddEmployee = () => {
        
         // Call the employee action of employeeSlice
         dispatch(addEmployee(employee))
-        alert(`Employee Added Successfully`)
         navigate('/')
     }
 
